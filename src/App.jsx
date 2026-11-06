@@ -3,6 +3,8 @@ import RequireAuth from './auth/RequireAuth.jsx';
 import Layout from './components/Layout.jsx';
 import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
+import BooksPage from './pages/books/BooksPage.jsx';
+import { ROLES } from './navigation.js';
 
 export default function App() {
   return (
@@ -16,6 +18,14 @@ export default function App() {
         }
       >
         <Route index element={<HomePage />} />
+        <Route
+          path="books"
+          element={
+            <RequireAuth roles={ROLES.staff}>
+              <BooksPage />
+            </RequireAuth>
+          }
+        />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
