@@ -1,0 +1,130 @@
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --text: #1d2330;
+  --muted: #5d6677;
+  --border: #d9dde5;
+  --primary: #2457c5;
+  --primary-text: #ffffff;
+  --danger: #b42318;
+  --danger-bg: #fdecea;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); }
+h1 { font-size: 1.4rem; margin: 0 0 0.75rem; }
+h2 { font-size: 1.1rem; margin: 0 0 0.75rem; }
+a { color: var(--primary); }
+.muted { color: var(--muted); }
+
+button {
+  font: inherit;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: var(--primary-text);
+  cursor: pointer;
+}
+button:disabled { opacity: 0.6; cursor: default; }
+button.secondary { background: transparent; color: var(--primary); }
+button.danger { background: var(--danger); border-color: var(--danger); }
+button.small { padding: 0.25rem 0.6rem; font-size: 0.875rem; }
+
+input, select {
+  font: inherit;
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+}
+label { display: grid; gap: 0.3rem; font-size: 0.9rem; font-weight: 500; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.alert {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.75rem;
+}
+.alert ul { margin: 0.4rem 0 0; padding-left: 1.2rem; }
+.notice {
+  background: #e8f3ec;
+  color: #1e6b3a;
+  border: 1px solid #1e6b3a;
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: #e3e9f7;
+  color: var(--primary);
+}
+
+/* Login */
+.login-page { min-height: 100vh; display: grid; place-items: center; padding: 1rem; }
+.login-card { width: 100%; max-width: 360px; display: grid; gap: 0.9rem; }
+
+/* Shell */
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.brand { font-weight: 700; }
+.nav { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+.nav a { padding: 0.4rem 0.7rem; border-radius: 6px; text-decoration: none; color: var(--text); }
+.nav a.active { background: #e3e9f7; color: var(--primary); font-weight: 600; }
+.user { margin-left: auto; display: flex; align-items: center; gap: 0.75rem; }
+.menu-toggle { display: none; }
+.content { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+.quick-links { padding-left: 1.2rem; line-height: 1.8; }
+
+/* Toolbars, forms and tables */
+.toolbar { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: end; margin-bottom: 1rem; }
+.toolbar > * { flex: 1 1 200px; }
+.toolbar > button { flex: 0 0 auto; }
+.page-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+.page-header h1 { margin: 0; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.9rem; }
+.form-actions { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
+td.actions { white-space: nowrap; display: flex; gap: 0.4rem; }
+.empty { color: var(--muted); padding: 1rem 0; }
+
+.pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: 1rem; }
+.pagination .buttons { display: flex; gap: 0.5rem; }
+
+@media (max-width: 720px) {
+  .menu-toggle { display: inline-block; margin-left: auto; }
+  .nav { display: none; width: 100%; flex-direction: column; }
+  .nav.open { display: flex; }
+  .user { width: 100%; margin-left: 0; justify-content: space-between; }
+}

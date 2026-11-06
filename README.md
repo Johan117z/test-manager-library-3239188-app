@@ -48,3 +48,29 @@ No hay prórroga: suban avances parciales con commits pequeños durante la prueb
 | [`test-manager-library-3239188-page`](https://github.com/code-sena/test-manager-library-3239188-page) | Sitio público estático de presentación |
 | [`test-manager-library-3239188-infra`](https://github.com/code-sena/test-manager-library-3239188-infra) | Contenedores, red, volúmenes y motor de base de datos vacío |
 | [`test-manager-library-3239188-tool`](https://github.com/code-sena/test-manager-library-3239188-tool) | Utilidades: sembrador de datos de demostración |
+
+---
+
+## Running the app (React + Vite)
+
+Node is not needed on the host; everything runs in a `node:22-alpine` container.
+
+```bash
+cp .env.example .env          # set VITE_API_URL if the API is not on http://localhost:8000/api/v1
+docker compose up             # dev server on http://localhost:5173
+docker compose run --rm app npm test
+docker compose run --rm app npm run build
+```
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `VITE_API_URL` | `http://localhost:8000/api/v1` | Base URL of the API (`api-contract.md` §1) |
+
+### Structure
+
+- `src/api/client.js` - fetch wrapper: Bearer token, single error body (`code`, `message`, `details`) as `ApiError`; a 401 ends the session.
+- `src/auth/` - session (token, role, expiry) kept in `localStorage`, route guard by role.
+- `src/navigation.js` - menu entries and the roles allowed to see them (`admin`, `librarian`).
+- `src/pages/` - one page per user story.
+
+UI text is in English; error messages come from the API in Spanish and are shown as sent.
