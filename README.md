@@ -107,11 +107,15 @@ Checked:
 - `npm run build` passes.
 - Every screen's API calls were exercised with curl against the mock, including `DUPLICATE_BOOK_IN_LOAN`, `MEMBER_HAS_OVERDUE`,
   `BOOK_NOT_AVAILABLE`, `ITEM_ALREADY_RETURNED`, `INVALID_DATE_RANGE`, `FORBIDDEN_ROLE`.
-- Real API (`http://localhost:8000/api/v1`): login, `GET /categories`, `GET /books`, the `VALIDATION_ERROR` body of `POST /books`
-  and CORS for `http://localhost:5173` answer as the app expects.
+- Real API (`http://localhost:8000/api/v1`), re-tested 2026-11-05 with curl: every call the screens make returns the shapes the
+  app reads (members list/detail/create, books, `POST /loans`, `GET /loans` and `/loans/{id}`, return of a line,
+  `GET /loans/overdue` as `{items, page, size, total}`, most-borrowed report). Error bodies checked: `DOCUMENT_TAKEN`,
+  `DUPLICATE_BOOK_IN_LOAN`, `BOOK_NOT_AVAILABLE`, `ITEM_ALREADY_RETURNED`, `INVALID_DATE_RANGE`, `VALIDATION_ERROR`,
+  `FORBIDDEN_ROLE` (librarian on the report). CORS preflight for `http://localhost:5173` with `Authorization` passes.
 
 Pending:
-- The real API does not serve members, loans, overdue or the report yet (404). Those screens were only tested against the mock.
+- Not seen against the real API: overdue rows (no overdue loans in the database yet), `MEMBER_HAS_OVERDUE` and
+  `MEMBER_LIMIT_EXCEEDED`. They use the same error body, which the app already shows as sent.
 - No click-through test in a browser was recorded; the UI was checked by build, unit tests and API calls only.
 - Book covers (`PUT/DELETE/GET /books/{id}/cover`) are not in the UI.
 - Creating librarians (`POST /users`, HU-02) has no screen.
