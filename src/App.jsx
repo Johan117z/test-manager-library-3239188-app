@@ -1,10 +1,17 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import RequireAuth from './auth/RequireAuth.jsx';
 import Layout from './components/Layout.jsx';
+import { ROLES } from './navigation.js';
 import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import BooksPage from './pages/books/BooksPage.jsx';
-import { ROLES } from './navigation.js';
+import MembersPage from './pages/members/MembersPage.jsx';
+
+// Routes below the layout; each one is guarded by the same roles shown in the menu.
+const PAGES = [
+  { path: 'books', element: <BooksPage />, roles: ROLES.staff },
+  { path: 'members', element: <MembersPage />, roles: ROLES.staff },
+];
 
 export default function App() {
   return (
@@ -18,14 +25,9 @@ export default function App() {
         }
       >
         <Route index element={<HomePage />} />
-        <Route
-          path="books"
-          element={
-            <RequireAuth roles={ROLES.staff}>
-              <BooksPage />
-            </RequireAuth>
-          }
-        />
+        {PAGES.map((page) => (
+          <Route key={page.path} path={page.path} element={<RequireAuth roles={page.roles}>{page.element}</RequireAuth>} />
+        ))}
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

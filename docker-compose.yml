@@ -13,5 +13,17 @@ services:
       - .:/app
       - node_modules:/app/node_modules
 
+  # Contract mock for UI testing without the real API (see mock/server.mjs).
+  #   docker compose --profile mock up mock     -> http://localhost:8100/api/v1
+  #   then run the app with VITE_API_URL=http://localhost:8100/api/v1
+  mock:
+    profiles: ["mock"]
+    image: node:22-alpine
+    command: node /mock/server.mjs
+    ports:
+      - "8100:8100"
+    volumes:
+      - ./mock:/mock:ro
+
 volumes:
   node_modules:

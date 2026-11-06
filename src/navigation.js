@@ -8,6 +8,7 @@ export const ROLES = {
 export const NAV_ITEMS = [
   { to: '/', label: 'Home', roles: ROLES.staff, end: true },
   { to: '/books', label: 'Books', roles: ROLES.staff },
+  { to: '/members', label: 'Members', roles: ROLES.staff },
 ];
 
 export function navFor(role) {
