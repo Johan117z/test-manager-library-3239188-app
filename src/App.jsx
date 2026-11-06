@@ -8,6 +8,7 @@ import BooksPage from './pages/books/BooksPage.jsx';
 import MembersPage from './pages/members/MembersPage.jsx';
 import LoansPage from './pages/loans/LoansPage.jsx';
 import NewLoanPage from './pages/loans/NewLoanPage.jsx';
+import OverduePage from './pages/loans/OverduePage.jsx';
 
 // Routes below the layout; each one is guarded by the same roles shown in the menu.
 const PAGES = [
@@ -15,6 +16,7 @@ const PAGES = [
   { path: 'members', element: <MembersPage />, roles: ROLES.staff },
   { path: 'loans/new', element: <NewLoanPage />, roles: ROLES.staff },
   { path: 'loans', element: <LoansPage />, roles: ROLES.staff },
+  { path: 'overdue', element: <OverduePage />, roles: ROLES.staff },
 ];
 
 export default function App() {
