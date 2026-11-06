@@ -134,3 +134,9 @@ td.actions { white-space: nowrap; display: flex; gap: 0.4rem; }
 .pick-list li { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--border); }
 .pick-list li:last-child { border-bottom: none; }
 .selected { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; }
+
+/* Loan status */
+.status-open { background: #e3e9f7; color: var(--primary); }
+.status-overdue { background: var(--danger-bg); color: var(--danger); }
+.status-closed { background: #ececec; color: var(--muted); }
+.detail { background: var(--bg); border-radius: 6px; padding: 0.5rem; overflow-x: auto; }

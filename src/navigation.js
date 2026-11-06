@@ -10,6 +10,7 @@ export const NAV_ITEMS = [
   { to: '/books', label: 'Books', roles: ROLES.staff },
   { to: '/members', label: 'Members', roles: ROLES.staff },
   { to: '/loans/new', label: 'New loan', roles: ROLES.staff },
+  { to: '/loans', label: 'Loans', roles: ROLES.staff, end: true },
 ];
 
 export function navFor(role) {
