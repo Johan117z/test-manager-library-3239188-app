@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import BooksPage from './pages/books/BooksPage.jsx';
 import MembersPage from './pages/members/MembersPage.jsx';
+import MostBorrowedPage from './pages/reports/MostBorrowedPage.jsx';
 import LoansPage from './pages/loans/LoansPage.jsx';
 import NewLoanPage from './pages/loans/NewLoanPage.jsx';
 import OverduePage from './pages/loans/OverduePage.jsx';
@@ -17,6 +18,7 @@ const PAGES = [
   { path: 'loans/new', element: <NewLoanPage />, roles: ROLES.staff },
   { path: 'loans', element: <LoansPage />, roles: ROLES.staff },
   { path: 'overdue', element: <OverduePage />, roles: ROLES.staff },
+  { path: 'reports/most-borrowed', element: <MostBorrowedPage />, roles: ROLES.admin },
 ];
 
 export default function App() {

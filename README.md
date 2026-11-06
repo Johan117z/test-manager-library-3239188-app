@@ -74,3 +74,47 @@ docker compose run --rm app npm run build
 - `src/pages/` - one page per user story.
 
 UI text is in English; error messages come from the API in Spanish and are shown as sent.
+
+### Screens
+
+| Screen | Route | Roles | Story |
+|---|---|---|---|
+| Login | `/login` | public | HU-01 |
+| Books: search, category filter, pagination; create / edit / delete | `/books` | admin, librarian (write: admin) | HU-03, HU-04 |
+| Members: list, search, create | `/members` | admin, librarian | HU-05 |
+| New loan: one member, 1 to 3 books | `/loans/new` | admin, librarian | HU-06 |
+| Loans: filters by date, status, member; return one line at a time | `/loans` | admin, librarian | HU-07, HU-08 |
+| Overdue books, most days late first; return from the list | `/overdue` | admin, librarian | HU-09 |
+| Most-borrowed report by date range | `/reports/most-borrowed` | admin | HU-10 |
+
+### Testing without the real API (mock)
+
+`mock/server.mjs` is an in-memory mock of `api-contract.md` (shapes, status codes, error codes) used to build the UI before
+the API was ready. It is **not** a reference implementation.
+
+```bash
+docker compose --profile mock up mock      # http://localhost:8100/api/v1
+# run the app against it: set VITE_API_URL=http://localhost:8100/api/v1 in .env, then docker compose up app
+```
+
+Mock users: `admin` / `admin123` (admin) and `ana` / `ana123` (librarian). Seed data includes overdue loans, a book with one copy
+(«El principito») and a book with open loans («Cien años de soledad»), so every error code of the contract can be triggered.
+
+### Status and pending work (2026-11-05)
+
+Checked:
+- `npm test`: 9 unit tests (API client: Bearer token, single error body, 401 handling; role-aware menu).
+- `npm run build` passes.
+- Every screen's API calls were exercised with curl against the mock, including `DUPLICATE_BOOK_IN_LOAN`, `MEMBER_HAS_OVERDUE`,
+  `BOOK_NOT_AVAILABLE`, `ITEM_ALREADY_RETURNED`, `INVALID_DATE_RANGE`, `FORBIDDEN_ROLE`.
+- Real API (`http://localhost:8000/api/v1`): login, `GET /categories`, `GET /books`, the `VALIDATION_ERROR` body of `POST /books`
+  and CORS for `http://localhost:5173` answer as the app expects.
+
+Pending:
+- The real API does not serve members, loans, overdue or the report yet (404). Those screens were only tested against the mock.
+- No click-through test in a browser was recorded; the UI was checked by build, unit tests and API calls only.
+- Book covers (`PUT/DELETE/GET /books/{id}/cover`) are not in the UI.
+- Creating librarians (`POST /users`, HU-02) has no screen.
+- The loan list shows the member name by calling `GET /members/{id}` once per member, because the contract's loan body only has
+  `member_id`.
+- No component tests (only unit tests for the client and the menu).

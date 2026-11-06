@@ -12,6 +12,7 @@ export const NAV_ITEMS = [
   { to: '/loans/new', label: 'New loan', roles: ROLES.staff },
   { to: '/loans', label: 'Loans', roles: ROLES.staff, end: true },
   { to: '/overdue', label: 'Overdue', roles: ROLES.staff },
+  { to: '/reports/most-borrowed', label: 'Report', roles: ROLES.admin },
 ];
 
 export function navFor(role) {
